@@ -72,6 +72,7 @@ class ProjectCard extends StatelessWidget {
               ),
             ),
           ],
-        ));
+        )
+        );
   }
 }
