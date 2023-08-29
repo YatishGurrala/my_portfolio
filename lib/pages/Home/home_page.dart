@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/example/projects.dart';
+import 'package:my_portfolio/responsive.dart';
 import 'package:my_portfolio/widgets/Header/header.dart';
 
 import '../../widgets/Cards/project_card.dart';
@@ -15,12 +16,13 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.black,
+        // ignore: avoid_print
+        onPressed: () => print("Button Pressed"),
         child: const Icon(
           Icons.share,
           color: Colors.white,
         ),
-        backgroundColor: Colors.black,
-        onPressed: () => print("Button Pressed"),
       ),
       body: SafeArea(
         child: SizedBox(
@@ -43,19 +45,9 @@ class HomePage extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  SizedBox(
-                    height: 350,
-                    child: ScrollConfiguration(
-                      behavior: MyCustomScrollBehavior(),
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: projects.length,
-                        itemBuilder: (context, index) {
-                          return ProjectCard(project: projects[index]);
-                        },
-                      ),
-                    ),
-                  )
+                 Responsive(mobile: mobileTabletBuilder(350),
+                  tablet: mobileTabletBuilder(450),
+                   desktop: desktopBuilder())
                 ],
               ),
             ),
@@ -65,6 +57,39 @@ class HomePage extends StatelessWidget {
     );
   }
 }
+
+Widget mobileTabletBuilder(double height){
+  return SizedBox(
+    height: height,
+    child: ScrollConfiguration(
+      behavior: MyCustomScrollBehavior(),
+    child: ListView.builder(
+       scrollDirection: Axis.horizontal,
+                        itemCount: projects.length,
+                        itemBuilder: (context, index) {
+                          return ProjectCard(project: projects[index]);
+                        },
+  ),
+    ),
+  );
+}
+
+
+Widget desktopBuilder() {
+    return GridView.builder(
+      shrinkWrap: true,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          crossAxisSpacing: 5.0,
+          mainAxisSpacing: 5.0,
+        ),
+        itemCount: projects.length,
+        itemBuilder: (context, index) {
+          return ProjectCard(project: projects[index]);
+        }
+    );
+}
+
 
 class MyCustomScrollBehavior extends MaterialScrollBehavior {
   @override

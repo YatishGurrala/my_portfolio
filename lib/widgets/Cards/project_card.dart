@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_portfolio/models/project.dart';
 
 import '../../pages/project/project_detail.dart';
+import '../../responsive.dart';
 
 class ProjectCard extends StatelessWidget {
   final Project project;
@@ -17,7 +18,7 @@ class ProjectCard extends StatelessWidget {
                     project: project,
                   ))),
       child: Container(
-          width: MediaQuery.of(context).size.width,
+          width: 300,
           margin: const EdgeInsets.only(top: 15.0, right: 25.0, bottom: 25.0),
           padding: const EdgeInsets.all(15.0),
           decoration: BoxDecoration(
@@ -49,7 +50,7 @@ class ProjectCard extends StatelessWidget {
                     padding: const EdgeInsets.all(5.0),
                     child: Text(
                       project.year.toString(),
-                      style: TextStyle(fontSize: 14, color: Colors.white),
+                      style: const TextStyle(fontSize: 14, color: Colors.white),
                     ),
                   ),
                 ],
@@ -59,14 +60,25 @@ class ProjectCard extends StatelessWidget {
               ),
               Expanded(
                 child: Hero(
-                  tag: project.name,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(15.0),
-                    child: Image.network(
-                      project.imageUrl,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                  tag: 'uniqueTag',
+                 child: Responsive(
+    mobile: Image.network(
+      project.imageUrl,
+      fit: BoxFit.cover,
+    ),
+    tablet: Image.network(
+      project.imageUrl,
+      fit: BoxFit.cover,
+    ),
+    desktop: SizedBox(
+      height: 350,
+      child: Image.network(
+        project.imageUrl,
+        fit: BoxFit.cover,
+      ),
+    ),
+  ),
+
                 ),
               ),
               const SizedBox(
@@ -75,7 +87,7 @@ class ProjectCard extends StatelessWidget {
               Text(
                 project.description,
                 maxLines: 3,
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 14,
                   overflow: TextOverflow.ellipsis,
                 ),

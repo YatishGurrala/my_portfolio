@@ -16,7 +16,7 @@ class IntroCard extends StatelessWidget {
           boxShadow: [
             BoxShadow(
                 color: Colors.black.withOpacity(.15),
-                offset: Offset(0, 15),
+                offset: const Offset(0, 15),
                 blurRadius: 25)
           ],
           borderRadius: BorderRadius.circular(15.0),
