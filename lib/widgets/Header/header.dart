@@ -9,17 +9,17 @@ class Header extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Column(
+        const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
-          children: const [
+          children: [
             Text(
               "Welcome back 👋",
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w300),
             ),
             Text(
-              "Jack's Portfolio",
+              "Yatish's Portfolio",
               style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             )
           ],
